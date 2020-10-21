@@ -46,3 +46,11 @@
      	 $$;
 * On our method call we should call our procedure:
 *     "CALL save_on_db(?)"
+###Connection pool:
+* I know that there are already many other connection pulls, like HikariCP or Apache Commons DBCP,
+but i want use my own one.
+* Let's create Class MyConnectionPool with required methods.
+* So we see method 'create' in which we are creating connectionPools. There is INITIAL_POOL_SIZE
+which answer for live count of our pools.
+* When we use getConnection we remove last element from our pool, and put it in used Connection.
+* When we use release connection we remove elemt from our usedPool and add new one to our pool.
