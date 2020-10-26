@@ -1,9 +1,5 @@
 package com.ithillel.service.connection;
 
-import com.ithillel.service.storage.HashMapStorage;
-import com.ithillel.service.storage.Storage;
-import org.postgresql.jdbc2.optional.ConnectionPool;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,25 +11,29 @@ public class MyConnectionPool {
     private String url;
     private String user;
     private String password;
-    private final List<Connection> connectionPool;
-    private final List<Connection> usedConnections = new ArrayList<>();
+    private static List<Connection> connectionPool = null;
+    private static List<Connection> usedConnections = new ArrayList<>();
+    private static final int INITIAL_POOL_SIZE = 10;
 
 
     public static MyConnectionPool create(String url, String user,
-            String password) throws SQLException {
-        int INITIAL_POOL_SIZE = 10;
-        List<Connection> pool = new ArrayList<>(INITIAL_POOL_SIZE);
-        for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
-            pool.add(createConnection(url, user, password));
+                                          String password) throws SQLException {
+        if (connectionPool == null) {
+            List<Connection> pool = new ArrayList<>(INITIAL_POOL_SIZE);
+            for (int i = 0; i < INITIAL_POOL_SIZE; i++) {
+                pool.add(createConnection(url, user, password));
+            }
+            return new MyConnectionPool(url, user, password, pool);
         }
-        return new MyConnectionPool(url, user, password, pool);
+        System.out.println("Connection pool instance already exists");
+        return new MyConnectionPool(url, user, password, connectionPool);
     }
 
-    public MyConnectionPool(String url, String user, String password, List<Connection> connectionPool) {
+    private MyConnectionPool(String url, String user, String password, List<Connection> connectionPool) {
         this.url = url;
         this.user = user;
         this.password = password;
-        this.connectionPool = connectionPool;
+        MyConnectionPool.connectionPool = connectionPool;
     }
 
     public Connection getConnection() {
@@ -68,6 +68,8 @@ public class MyConnectionPool {
             preparedStatement.setString(1, "TEST");
             preparedStatement.executeUpdate();
             connectionPool.releaseConnection(connection);
+            MyConnectionPool connectionPool1 = MyConnectionPool
+                    .create("jdbc:postgresql://localhost:5432/postgres", "postgres", "123");
         } catch (SQLException throwables) {
             throw new RuntimeException("MISTAKE", throwables);
         }
