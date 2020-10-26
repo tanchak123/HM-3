@@ -1,5 +1,7 @@
 package com.ithillel.persistence.entity;
 
+import com.ithillel.persistence.entity.util.CustomKeyConverter;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -9,6 +11,7 @@ import java.util.Date;
 public class ClientInfoEntity extends CommonEntity {
 
     @Column(name = "email")
+    @Convert(converter = CustomKeyConverter.class)
     private String email;
 
     @ManyToOne()

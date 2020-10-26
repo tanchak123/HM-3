@@ -1,7 +1,7 @@
 package com.ithillel.persistence.entity;
 
-import com.ithillel.persistence.entity.util.KeyCreator;
-import com.ithillel.persistence.entity.util.PassWordKeyCreator;
+import com.ithillel.persistence.entity.util.CustomKeyConverter;
+import com.ithillel.persistence.entity.util.PasswordKeyCreator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
@@ -15,10 +15,11 @@ import java.util.List;
 public class AccountEntity extends CommonEntity {
 
     @Column(name = "name")
+    @Convert(converter = CustomKeyConverter.class)
     private String name;
 
     @Column(name = "password")
-    @Convert(converter = PassWordKeyCreator.class)
+    @Convert(converter = PasswordKeyCreator.class)
     private String password;
 
     @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

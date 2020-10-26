@@ -1,5 +1,6 @@
 package com.ithillel.persistence.entity;
 
+import com.ithillel.persistence.entity.util.CustomKeyConverter;
 import com.ithillel.persistence.entity.util.CustomLongTimeConverter;
 import com.ithillel.persistence.entity.util.CustomUUIDCreator;
 import org.hibernate.annotations.CreationTimestamp;
@@ -23,6 +24,7 @@ public class ClientEntity extends CommonEntity {
     public ClientEntity() {}
 
     @Column(name = "name")
+    @Convert(converter = CustomKeyConverter.class)
     private String fullname;
 
 //    @ManyToOne
