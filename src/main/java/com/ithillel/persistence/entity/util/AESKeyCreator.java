@@ -1,6 +1,11 @@
 package com.ithillel.persistence.entity.util;
 
 
+import com.ithillel.persistence.entity.ClientEntity;
+import com.ithillel.persistence.entity.service.interfaces.ClientService;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -68,5 +73,19 @@ public class AESKeyCreator {
 
         return result.toString();
 
+    }
+
+
+    public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+                "classpath:spring/default-beans.xml");
+        ClientService clientService = (ClientService) context.getBean("clientServiceImpl");
+        ClientEntity entity = clientService.getById(10);
+        entity.setPassword("password1");
+        System.out.println("not updated entity|||" + entity.getPassword());
+        clientService.update(entity);
+        System.out.println("password1|||" + clientService.getById(10).getPassword());
+        clientService.changePasswordById(10, "password2");
+        System.out.println("password2|||" + clientService.getById(10).getPassword());
     }
 }
