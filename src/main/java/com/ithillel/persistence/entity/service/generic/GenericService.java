@@ -8,5 +8,5 @@ public interface GenericService<M, L> {
 
     M removeById(L l);
 
-    M updateById(L l);
+    M update(M m);
 }

@@ -1,6 +1,10 @@
 package com.ithillel.persistence.entity.util;
 
+import com.ithillel.persistence.entity.ClientEntity;
+import com.ithillel.persistence.entity.service.interfaces.ClientService;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
@@ -66,6 +70,17 @@ public class KeyCreator {
         System.out.println("String To Encrypt: "+ target);
         System.out.println("Encrypted String: " + encrypted);
         System.out.println("Decrypted String: " + decrypted);
+
+        ApplicationContext context = new ClassPathXmlApplicationContext(
+                "classpath:spring/default-beans.xml");
+        ClientService clientService = (ClientService) context.getBean("clientServiceImpl");
+        ClientEntity entity = clientService.getById(10);
+        entity.setPassword("password1");
+        System.out.println("not updated entity|||" + entity.getPassword());
+        clientService.update(entity);
+        System.out.println("password1|||" + clientService.getById(10).getPassword());
+        clientService.changePasswordById(10, "password2");
+        System.out.println("password2|||" + clientService.getById(10).getPassword());
 
     }
 }

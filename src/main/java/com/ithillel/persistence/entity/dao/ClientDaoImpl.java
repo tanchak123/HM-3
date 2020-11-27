@@ -35,7 +35,7 @@ public class ClientDaoImpl implements ClientDao {
     }
 
     @Override
-    public ClientEntity update(Integer integer) {
-        return null;
+    public ClientEntity update(ClientEntity client) {
+        return entityManager.merge(client);
     }
 }

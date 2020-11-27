@@ -6,6 +6,7 @@ import com.ithillel.persistence.entity.service.interfaces.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 @Component
 public class AccountServiceImpl implements AccountService {
@@ -25,7 +26,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public AccountEntity updateById(Integer integer) {
+    public AccountEntity update(AccountEntity accountEntity) {
         return null;
     }
 
@@ -36,4 +37,5 @@ public class AccountServiceImpl implements AccountService {
         accountEntity.getClients().size();
         return accountEntity;
     }
+
 }

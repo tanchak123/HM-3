@@ -6,6 +6,7 @@ import com.ithillel.persistence.entity.service.interfaces.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 @Component
 public class ClientServiceImpl implements ClientService {
@@ -31,7 +32,17 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientEntity updateById(Integer integer) {
-        return null;
+    @Transactional
+    public ClientEntity update(ClientEntity client) {
+        return clientDao.update(client);
+    }
+
+    @Override
+    @Transactional
+    public boolean changePasswordById(Integer id, String newPassword) {
+        Assert.notNull(id, "entity is null");
+        Assert.notNull(newPassword, "password can't be null");
+        getById(id).setPassword(newPassword);
+        return true;
     }
 }

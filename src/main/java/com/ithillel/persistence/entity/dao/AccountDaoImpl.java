@@ -36,7 +36,8 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public AccountEntity update(Integer integer) {
+    public AccountEntity update(AccountEntity accountEntity) {
         return null;
     }
+
 }

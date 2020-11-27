@@ -8,6 +8,6 @@ public interface GenericDao<M, L> {
 
     M delete(L l);
 
-    M update(L l);
+    M update(M m);
 
 }
