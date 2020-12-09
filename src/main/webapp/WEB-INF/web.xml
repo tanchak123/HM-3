@@ -1,0 +1,43 @@
+<web-app
+        xmlns="http://java.sun.com/xml/ns/javaee" version="4.0">
+    <servlet>
+        <servlet-name>DisplayImageDownLoad</servlet-name>
+        <servlet-class>com.ithillel.servlet.DisplayImageDownLoad</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DisplayImageDownLoad</servlet-name>
+        <url-pattern>/download</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>downLoad</servlet-name>
+        <servlet-class>com.ithillel.servlet.HeaderDownLoad</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>downLoad</servlet-name>
+        <url-pattern>/header</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>images</servlet-name>
+        <servlet-class>com.ithillel.servlet.DisplayImage</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>images</servlet-name>
+        <url-pattern>/images/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>enter</servlet-name>
+        <servlet-class>com.ithillel.servlet.EnterData</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>enter</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+</web-app>
